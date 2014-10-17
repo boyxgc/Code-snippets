@@ -151,11 +151,14 @@
  			SkipListNode * tmp = head;
  			printf("Level %d: ", i);
  			while(1) {
- 				printf("%d  ", tmp->elem);
- 				if(tmp == tail) break;
+ 				if(tmp == tail) {
+ 					printf("%d\n", tmp->elem);
+ 					break;
+ 				} else {
+ 					printf("%d -> ", tmp->elem);
+ 				}
  				tmp = tmp->forward[i];
  			}
- 			puts("");
  		}
  	}
  private:
