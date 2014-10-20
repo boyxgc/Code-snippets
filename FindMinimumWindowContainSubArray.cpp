@@ -81,18 +81,18 @@ vector<int> FindMinWinofSubArray2(vector<int> &S, vector<int> &Q) {
 		}
 	}
 	// find the window of min size
-	int maxindex = -1;
+	int minindex = -1;
 	for(int i = 0; i < wins.size(); ++i) {
-		if(maxindex < 0 || (wins[i].back() - wins[i][0]) < (wins[maxindex].back() - wins[maxindex][0])) {
-			maxindex = i;
+		if(minindex < 0 || (wins[i].back() - wins[i][0]) < (wins[minindex].back() - wins[minindex][0])) {
+			minindex = i;
 		}
 	}
 	// output number in the min window
-	if(maxindex < 0) {
+	if(minindex < 0) {
 		return vector<int>();
 	} else {
-		int start = wins[maxindex][0];
-		int end = wins[maxindex].back() + 1;
+		int start = wins[minindex][0];
+		int end = wins[minindex].back() + 1;
 		return vector<int>(S.begin()+start, S.begin()+end);
 	}
 }
