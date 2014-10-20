@@ -24,7 +24,7 @@ int countLongestArithmeticSequence(vector<int> &nums) {
 		vector<pair<int, int> > pairs = it->second;
 
 		for(int i = 0; i < pairs.size(); ++i) {
-			lens[pairs[i].second] += lens[pairs[i].first];
+			lens[pairs[i].second] = max(lens[pairs[i].second], lens[pairs[i].first]+1);
 			longest = max(longest, lens[pairs[i].second]);
 		}		
 	}
@@ -36,6 +36,7 @@ int main() {
 	vector<int> v;
 	v.push_back(1);
 	v.push_back(6);
+	v.push_back(3);
 	v.push_back(3);
 	v.push_back(5);
 	v.push_back(9);
