@@ -71,3 +71,7 @@ double getMedian() {
 		return (l_max_pq.top() + r_min_pq.top())/2.0;
 	}
 }
+
+int main() {
+	return 0;
+}

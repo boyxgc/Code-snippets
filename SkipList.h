@@ -42,7 +42,7 @@
  		UP_PROB = probability;
  		head = new SkipListNode(INT_MIN, MAX_LEVEL);
  		tail = new SkipListNode(INT_MAX, MAX_LEVEL);
- 		int _size = 0;
+ 		_size = 0;
 
  		for(int i = 0; i < MAX_LEVEL; ++i) {
  			head->forward[i] = tail;

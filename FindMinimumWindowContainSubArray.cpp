@@ -12,7 +12,7 @@ void outputPath(vector<int> &S, vector<int> &Q, vector<vector<int> > & minSub, i
 	}
 
 	int a = minSub[i-1][j]+1;
-	int b = minSub[i-1][j-1]+1 + BIG*(S[i-1] == Q[j-1] ? 0 : 1);
+	//int b = minSub[i-1][j-1]+1 + BIG*(S[i-1] == Q[j-1] ? 0 : 1);
 	if(minSub[i][j] == a) {
 		outputPath(S, Q, minSub, i-1, j, level -1);
 		cout << S[i-1] << " ";

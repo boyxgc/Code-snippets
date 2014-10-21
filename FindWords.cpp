@@ -1,6 +1,29 @@
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <queue>
+using namespace std;
 
 // DFS
-int CountWaysOfFindingWords(string str, vector<vector<char> > &matrix) {
+
+int CountWaysOfFindingWords(string str, int pos, vector<vector<char> > &matrix, int i, int j, unordered_map<string, int> &cached) {
+	if (i < 0 || i >= matrix.size() || j < 0 || j >= matrix[0].size()) return 0;
+	if(str[pos] != matrix[i][j]) return 0;
+	if(pos == str.size() - 1) return 1;
+
+	string key = to_string(i) + "+" + to_string(j) + "+" + to_string(pos);
+	if(cached.find(key) != cached.end()) return cached[key];
+	int ways = 0;
+	ways += CountWaysOfFindingWords(str, pos+1, matrix, i+1, j, cached);
+	ways += CountWaysOfFindingWords(str, pos+1, matrix, i-1, j, cached);
+	ways += CountWaysOfFindingWords(str, pos+1, matrix, i, j+1, cached);
+	ways += CountWaysOfFindingWords(str, pos+1, matrix, i, j-1, cached);
+
+	cached[key] = ways;
+	return ways;
+}
+
+int CountWaysOfFindingWords_DFS(string str, vector<vector<char> > &matrix) {
 	int m = matrix.size();
 	int n = matrix[0].size();
 	int res = 0;
@@ -15,23 +38,6 @@ int CountWaysOfFindingWords(string str, vector<vector<char> > &matrix) {
 	return res;
 }
 
-int CountWaysOfFindingWords(string str, int pos, vector<vector<char> > &matrix, int i, int j, unordered_map<string, int> &cached) {
-	if (i < 0 || i >= matrix.size() || j < 0 || j >= matrix[0].size()) return 0;
-	if(str[pos] != matrix[i][j]) return 0;
-	if(pos == str.size() - 1) return 1;
-
-	string key = to_string(i) + "+" + to_string(i) + "+" + to_string(pos);
-	if(cached.find(key) != cached.end()) return cached[key];
-	int ways = 0;
-	ways += CountWaysOfFindingWords(str, pos+1, matrix, i+1, j);
-	ways += CountWaysOfFindingWords(str, pos+1, matrix, i-1, j);
-	ways += CountWaysOfFindingWords(str, pos+1, matrix, i, j+1);
-	ways += CountWaysOfFindingWords(str, pos+1, matrix, i, j-1);
-
-	cached[key] = ways;
-	return ways;
-}
-
 // BFS
 struct Node {
 	int i;
@@ -40,7 +46,16 @@ struct Node {
 	Node(int iv, int jv, int posv): i(iv), j(jv), pos(posv) {}
 };
 
-int CountWaysOfFindingWords(string str, vector<vector<char> > &matrix) {
+void addNode(string &str, int pos, vector<vector<char> > &matrix, int i, int j, queue<Node> &q) {
+	if(i < 0 || i >= matrix.size() || j < 0 || j >= matrix[0].size()) return;
+	if(pos >= str.size()) return;
+	if(matrix[i][j] == str[pos]) {
+		Node node(i, j, pos);
+		q.push(node);
+	}
+}
+
+int CountWaysOfFindingWords_BFS(string str, vector<vector<char> > &matrix) {
 	int m = matrix.size();
 	int n = matrix[0].size();
 	queue<Node> q;
@@ -48,7 +63,7 @@ int CountWaysOfFindingWords(string str, vector<vector<char> > &matrix) {
 		for(int j = 0; j < n; ++j) {
 			if(matrix[i][j] == str[0]) {
 				Node node(i, j, 0);
-				q.push(node)
+				q.push(node);
 			}
 		}
 	}
@@ -69,11 +84,6 @@ int CountWaysOfFindingWords(string str, vector<vector<char> > &matrix) {
 	return count;
 }
 
-void addNode(string &str, int pos, vector<vector<char> > &matrix, int i, int j, queue<Node> &q) {
-	if(i < 0 || i >= matrix.size() || j < 0 || j >= matrix[0].size()) return;
-	if(pos >= str.size()) return;
-	if(matrix[i][j] == str[pos]) {
-		Node node(i, j, pos);
-		q.push(node);
-	}
+int main() {
+	return 0;
 }
