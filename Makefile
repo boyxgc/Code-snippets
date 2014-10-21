@@ -5,6 +5,7 @@ CPP_OBJECTS = $(patsubst %.cpp,%.o,${CPP_SOURCES})
 
 NEW_CPP_SOURCES = ${shell find $(SRC_DIR) -type f -mtime -1 -name "*.cpp"}
 NEW_CPP_OBJECTS = $(patsubst %.cpp,%.o,${NEW_CPP_SOURCES})
+NEW_CPP_OBJECTS2 = $(patsubst %.cpp,%,${NEW_CPP_SOURCES})
 
 all: clean build
 
@@ -18,4 +19,4 @@ buildnew: ${NEW_CPP_OBJECTS}
 	g++ -Wall $< -o $@
 
 clean:
-	rm -rf *.o *.dSYM
+	rm -rf ${NEW_CPP_OBJECTS} ${NEW_CPP_OBJECTS2} *.dSYM
