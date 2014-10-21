@@ -10,7 +10,7 @@ int biSearch(int A[], int n) {
 	while(l <= h) {
 		m = l + (h-l)/2;
 		
-		if(m-1 < 0 || m+1 >= n) return -1;
+		if(m-1 < 0 || m+1 >= n) return max(A[l], A[h]);
 
 		if(A[m] > A[m-1] && A[m] > A[m+1]) {
 			return A[m];
@@ -26,6 +26,7 @@ int biSearch(int A[], int n) {
 int main() {
 
 	int A[] = {1,9,8,7,6,5,4,2};
-	printf("%d\n", biSearch(A, 8));
+	int n = sizeof(A)/sizeof(int);
+	printf("%d\n", biSearch(A, n));
 	return 0;
 }
